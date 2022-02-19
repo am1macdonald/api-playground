@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display: flex; flex-direction: column;; justify-content: space-between; align-items: center;">
+    <img src="#" alt="img" style="height:45vh; width:auto; margin-bottom: 2vh;">
+    <div>   
+        <p style="display: inline-block;">Search:</p>
+        <input type="text" name="search-term" id="search-term" style="margin-bottom: 1vh; display: inline-block;">
+    </div>
+    <button>New GIF</button>
+    <script>
+        const img = document.querySelector('img');
+        const button = document.querySelector('button');
+        const term = document.querySelector('input');
+        term.value = 'dogs' 
+        const getNewGif = () => {
+            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=9S3NpU0Eevp7vhbXz7L3DUHPNefFnOoc&s=${term.value}`,{mode: 'cors'})
+            .then(function(response) {
+                return response.json();
+            }).then(function(response) {
+                img.src = response.data.images.original.url;
+            }).catch(error => {
+                img.src = 'WvEu0cO.png'
+            });
+        }
+        getNewGif();
+        button.addEventListener('click', () => {
+            getNewGif();
+        })
+        term.addEventListener('keyup', (e) => {
+            
+            if (e.keyCode === 13) {
+                e.preventDefault
+                button.click()
+            }
+        })
+    </script>
+</body>
+</html>
